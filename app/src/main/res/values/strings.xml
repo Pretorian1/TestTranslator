@@ -3,4 +3,11 @@
     <string name="input_text">Input Text</string>
     <string name="output_text">Output Text</string>
     <string name="translate">Translate</string>
+    <string name="to">To</string>
+    <string name="from">From</string>
+    <string-array name="language">
+        <item name="ukraine">uk</item>
+        <item name="russin">ru</item>
+        <item name="english">en</item>
+    </string-array>
 </resources>

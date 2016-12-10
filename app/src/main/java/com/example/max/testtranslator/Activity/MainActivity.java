@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.max.testtranslator.R;
+import com.example.max.testtranslator.REST.ApiMethods;
 import com.example.max.testtranslator.REST.YandexTranslateAPI;
+import com.example.max.testtranslator.RequestMethods.TranslateRequest;
 import com.example.max.testtranslator.ResponseModels.TranslateData;
 import com.example.max.testtranslator.Utils.MessageEvent;
 import com.example.max.testtranslator.Utils.Messages;
@@ -25,12 +28,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.max.testtranslator.REST.ApiMethods.createYandexTranlateAPI;
+import static com.example.max.testtranslator.REST.ApiMethods.makeRequest;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText mInputText;
     private EditText mOutputText;
     private Button mButton;
+    private Spinner mSpinnerFrom;
+    private Spinner mSpinnerTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         mInputText = (EditText) findViewById(R.id.input_text);
         mOutputText = (EditText) findViewById(R.id.output_text);
         mButton =(Button)findViewById(R.id.button);
+        mSpinnerFrom =(Spinner) findViewById(R.id.spinnerFrom);
+        mSpinnerTo = (Spinner) findViewById(R.id.spinnerTo);
         EventBus.getDefault().register(this);
         mButton.setOnClickListener(new View.OnClickListener() {//
             @Override
@@ -51,11 +59,15 @@ public class MainActivity extends AppCompatActivity {
     public void translateText(){
         if(!mInputText.getText().toString().matches("")){
           HashMap mapJson = new HashMap<>();
+            String from = mSpinnerFrom.getSelectedItem().toString();
+            String to = mSpinnerTo.getSelectedItem().toString();
             mapJson.put("key", YandexTranslateAPI.KEY);
             mapJson.put("text", mInputText.getText().toString());
-            mapJson.put("lang", "en-uk");
-            YandexTranslateAPI service = createYandexTranlateAPI();
+            mapJson.put("lang", from+"-"+to);
+            TranslateRequest.requestTranslate(mapJson);
+           /* YandexTranslateAPI service = createYandexTranlateAPI();
             Call call = service.translate(mapJson);
+
             call.enqueue(new Callback<TranslateData>() {
                 @Override
                 public void onResponse(Call<TranslateData> call, Response<TranslateData> response) {
@@ -72,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<TranslateData> call, Throwable t) {
 
                 }
-            });
+            });*/
 
 
         }
