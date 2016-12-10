@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -98,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, event.message.name(), Toast.LENGTH_SHORT).show();
                 break;
             case RESPONSE_SERVER_TRANSLATE:
-                mOutputText.setText(((TranslateData)event.link).getText().get(0));
+                mOutputText.setText("");
+                ArrayList<String> translatedList = ((TranslateData)event.link).getText();
+                for(String s:translatedList){
+                    mOutputText.setText(mOutputText.getText().toString()+s);
+                }
+              //  mOutputText.setText(((TranslateData)event.link).getText().get(0));// може більше треба показувати!!!
                 break;
         }
     }
