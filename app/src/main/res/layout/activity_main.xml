@@ -36,7 +36,7 @@
             android:id="@+id/input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:inputType="text" />
     </LinearLayout>
 
     <TextView
@@ -76,7 +76,7 @@
             android:id="@+id/output_text"
             android:layout_width="277dp"
             android:layout_height="wrap_content"
-           />
+            android:inputType="text" />
 
     </LinearLayout>
 
@@ -95,5 +95,14 @@
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/textViewFrom"
         android:id="@+id/textViewTo" />
+
+    <Button
+        android:text="Parse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:id="@+id/buttonParser" />
 
 </RelativeLayout>
