@@ -1,10 +1,9 @@
 package com.example.max.testtranslator.Activity;
 
-import android.content.Intent;
+
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -12,30 +11,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.max.testtranslator.OfflineTranslate.TranslateFromLibrary;
 import com.example.max.testtranslator.R;
-import com.example.max.testtranslator.REST.ApiMethods;
 import com.example.max.testtranslator.REST.YandexTranslateAPI;
 import com.example.max.testtranslator.RequestMethods.TranslateRequest;
 import com.example.max.testtranslator.ResponseModels.TranslateData;
 import com.example.max.testtranslator.Utils.MessageEvent;
-import com.example.max.testtranslator.Utils.Messages;
-import com.google.gson.Gson;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.example.max.testtranslator.REST.ApiMethods.createYandexTranlateAPI;
-import static com.example.max.testtranslator.REST.ApiMethods.makeRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner mSpinnerFrom;
     private Spinner mSpinnerTo;
     private Button mButtonParser;
+    final String english ="L1";
+    final String russian = "L2";
     final String LOG_TAG = "myLogs";
 
     @Override
@@ -69,56 +61,34 @@ public class MainActivity extends AppCompatActivity {
         mButtonParser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tmp = "";
-
-                try {
-                    XmlPullParser xpp = prepareXpp();
-
-                    while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
-                        switch (xpp.getEventType()) {
-                            // начало документа
-                            case XmlPullParser.START_DOCUMENT:
-                                Log.d(LOG_TAG, "START_DOCUMENT");
-                                break;
-                            // начало тэга
-                            case XmlPullParser.START_TAG:
-                                Log.d(LOG_TAG, "START_TAG: name = " + xpp.getName()
-                                        + ", depth = " + xpp.getDepth() + ", attrCount = "
-                                        + xpp.getAttributeCount());
-                                tmp = "";
-                                for (int i = 0; i < xpp.getAttributeCount(); i++) {
-                                    tmp = tmp + xpp.getAttributeName(i) + " = "
-                                            + xpp.getAttributeValue(i) + ", ";
+                Handler handler = new Handler();
+                Runnable r = new Runnable(){
+                    public void run() {
+                        String from = mSpinnerFrom.getSelectedItem().toString();
+                        String to = mSpinnerTo.getSelectedItem().toString();
+                        String tempString = mInputText.getText().toString();
+                        if ( !tempString.equals("")) {
+                            String [] arrayOfWords=tempString.toLowerCase().split(" ");
+                            if (from.equals("ru") && to.equals("en")) {
+                                mOutputText.setText("");
+                                for (int i =0 ; i<arrayOfWords.length;i++){
+                                mOutputText.setText(mOutputText.getText().toString()+" "+TranslateFromLibrary.getTranslate(prepareXppRE(), arrayOfWords[i]));
                                 }
-                                if (!TextUtils.isEmpty(tmp))
-                                    Log.d(LOG_TAG, "Attributes: " + tmp);
-                                break;
-                            // конец тэга
-                            case XmlPullParser.END_TAG:
-                                Log.d(LOG_TAG, "END_TAG: name = " + xpp.getName());
-                                break;
-                            // содержимое тэга
-                            case XmlPullParser.TEXT:
-                                Log.d(LOG_TAG, "text = " + xpp.getText());
-                                break;
-
-                            default:
-                                break;
+                            } else if (from.equals("en") && to.equals("ru")) {
+                                mOutputText.setText("");
+                                for (int i =0 ; i<arrayOfWords.length;i++){
+                                mOutputText.setText(mOutputText.getText().toString()+" "+TranslateFromLibrary.getTranslate(prepareXppER(), arrayOfWords[i]));
+                                }
+                            } else {
+                                mOutputText.setText(getResources().getString(R.string.not_ready));
+                            }
                         }
-                        // следующий элемент
-                        xpp.next();
+                        else
+                            mOutputText.setText(getResources().getString(R.string.put_phrase));
                     }
-                    Log.d(LOG_TAG, "END_DOCUMENT");
+                };
+                handler.post(r);
 
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            XmlPullParser prepareXpp() {
-                return getResources().getXml(R.xml.english_russian);
             }
         });
     }
@@ -132,27 +102,6 @@ public class MainActivity extends AppCompatActivity {
             mapJson.put("text", mInputText.getText().toString());
             mapJson.put("lang", from+"-"+to);
             TranslateRequest.requestTranslate(mapJson);
-           /* YandexTranslateAPI service = createYandexTranlateAPI();
-            Call call = service.translate(mapJson);
-
-            call.enqueue(new Callback<TranslateData>() {
-                @Override
-                public void onResponse(Call<TranslateData> call, Response<TranslateData> response) {
-                    if (response.isSuccessful()) {
-                        //getting response from server
-                        TranslateData serverResponse = response.body();
-                        EventBus.getDefault().post(new MessageEvent(Messages.RESPONSE_SERVER_TRANSLATE, serverResponse));
-                    } else {
-                        EventBus.getDefault().post(new MessageEvent(Messages.RESPONSE_SERVER_ERROR, null));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<TranslateData> call, Throwable t) {
-
-                }
-            });*/
-
 
         }
 
@@ -170,9 +119,16 @@ public class MainActivity extends AppCompatActivity {
                 for(String s:translatedList){
                     mOutputText.setText(mOutputText.getText().toString()+s);
                 }
-              //  mOutputText.setText(((TranslateData)event.link).getText().get(0));// може більше треба показувати!!!
                 break;
         }
     }
+    public  XmlPullParser prepareXppER() {
+        return getResources().getXml(R.xml.english_russian);
+    }
+    public  XmlPullParser prepareXppRE() {
+        return getResources().getXml(R.xml.russian_english);
+    }
 
 }
+
+

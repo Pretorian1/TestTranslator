@@ -5,6 +5,8 @@
     <string name="translate">Translate</string>
     <string name="to">To</string>
     <string name="from">From</string>
+    <string name="not_ready">Not Ready Now! Choose en-ru, ru-en</string>
+    <string name="put_phrase">Put Phrase!!!</string>
     <string-array name="language">
         <item name="ukraine">uk</item>
         <item name="russin">ru</item>
