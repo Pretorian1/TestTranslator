@@ -1,11 +1,8 @@
 package com.example.max.testtranslator.RequestMethods;
 
 import com.example.max.testtranslator.REST.YandexTranslateAPI;
-import com.example.max.testtranslator.ResponseModels.TranslateData;
 import com.example.max.testtranslator.Utils.Messages;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 
 /**

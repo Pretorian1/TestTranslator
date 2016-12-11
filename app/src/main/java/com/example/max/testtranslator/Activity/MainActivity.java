@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner mSpinnerFrom;
     private Spinner mSpinnerTo;
     private Button mButtonParser;
-    final String english ="L1";
-    final String russian = "L2";
-    final String LOG_TAG = "myLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mSpinnerTo = (Spinner) findViewById(R.id.spinnerTo);
         mButtonParser = (Button) findViewById(R.id.buttonParser);
         EventBus.getDefault().register(this);
-        mButton.setOnClickListener(new View.OnClickListener() {//
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               translateText();
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 handler.post(r);
-
             }
         });
     }
@@ -102,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             mapJson.put("text", mInputText.getText().toString());
             mapJson.put("lang", from+"-"+to);
             TranslateRequest.requestTranslate(mapJson);
-
         }
 
     }

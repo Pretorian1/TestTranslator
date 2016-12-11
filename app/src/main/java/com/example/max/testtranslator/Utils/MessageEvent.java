@@ -1,6 +1,5 @@
 package com.example.max.testtranslator.Utils;
 
-
 public class MessageEvent {
     public final Messages message;
     public final Object link;

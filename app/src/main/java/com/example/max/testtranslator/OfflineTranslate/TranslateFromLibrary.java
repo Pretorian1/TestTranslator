@@ -1,19 +1,10 @@
 package com.example.max.testtranslator.OfflineTranslate;
 
-import android.text.TextUtils;
 import android.util.Log;
-
-import com.example.max.testtranslator.Activity.MainActivity;
-import com.example.max.testtranslator.R;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 
-/**
- * Created by Max on 11.12.2016.
- */
 
 public class TranslateFromLibrary {
 

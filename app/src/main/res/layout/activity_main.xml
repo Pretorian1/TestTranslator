@@ -88,21 +88,22 @@
         android:entries="@array/language"
         android:id="@+id/spinnerTo" />
 
-    <TextView
-        android:text="@string/to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/textViewFrom"
-        android:id="@+id/textViewTo" />
-
     <Button
-        android:text="Parse"
+        android:text="@string/translate_offline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
         android:id="@+id/buttonParser" />
+
+    <TextView
+        android:text="@string/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewTo"
+        android:layout_above="@+id/spinnerTo"
+        android:layout_alignStart="@+id/textViewFrom"
+        android:layout_marginBottom="12dp" />
 
 </RelativeLayout>

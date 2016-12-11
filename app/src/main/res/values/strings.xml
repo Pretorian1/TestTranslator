@@ -2,14 +2,15 @@
     <string name="app_name">TestTranslator</string>
     <string name="input_text">Input Text</string>
     <string name="output_text">Output Text</string>
-    <string name="translate">Translate</string>
+    <string name="translate">Translate Online</string>
+    <string name="translate_offline">Translate Offline</string>
     <string name="to">To</string>
     <string name="from">From</string>
     <string name="not_ready">Not Ready Now! Choose en-ru, ru-en</string>
     <string name="put_phrase">Put Phrase!!!</string>
     <string-array name="language">
         <item name="ukraine">uk</item>
-        <item name="russin">ru</item>
+        <item name="russian">ru</item>
         <item name="english">en</item>
     </string-array>
 </resources>

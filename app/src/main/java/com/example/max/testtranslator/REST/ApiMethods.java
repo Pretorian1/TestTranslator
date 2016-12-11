@@ -1,14 +1,8 @@
 package com.example.max.testtranslator.REST;
 
-
-
-
 import com.example.max.testtranslator.Utils.MessageEvent;
 import com.example.max.testtranslator.Utils.Messages;
-
 import org.greenrobot.eventbus.EventBus;
-
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
