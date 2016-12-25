@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "53658890934",
+    "firebase_url": "https://test-translator-374d2.firebaseio.com",
+    "project_id": "test-translator-374d2",
+    "storage_bucket": "test-translator-374d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53658890934:android:39673f454917a2df",
+        "android_client_info": {
+          "package_name": "com.example.max.testtranslator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53658890934-p2gbh2mp8r39p4h4u4g7ellfour6bl6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy1mPxqJ-Tb1IPxUUjWqSKlW8FRVkqd6I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
