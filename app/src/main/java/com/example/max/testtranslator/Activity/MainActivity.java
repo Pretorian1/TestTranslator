@@ -18,7 +18,11 @@ import com.example.max.testtranslator.RequestMethods.TranslateRequest;
 import com.example.max.testtranslator.ResponseModels.TranslateData;
 import com.example.max.testtranslator.Utils.MessageEvent;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 
@@ -67,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         // Wait 5 seconds before counting this as a session
         mFBAnalytics.setMinimumSessionDuration(MIN_SESSION_DURATION);
 
+        //AdMob
+
+
+
       /*  Bundle params = new Bundle();
         params.putInt("ButtonOffline",R.id.button);
         params.putInt("ButtonOnline",R.id.buttonParser);*/
@@ -74,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
+        FirebaseCrash.report(new Exception("My first Android non-fatal error"));//crash reporting
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-5405208829283027~7710107792");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         mInputText = (EditText) findViewById(R.id.input_text);
         mInputText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mOutputText = (EditText) findViewById(R.id.output_text);

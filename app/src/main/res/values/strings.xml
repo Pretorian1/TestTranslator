@@ -8,6 +8,8 @@
     <string name="from">From</string>
     <string name="not_ready">Not Ready Now! Choose en-ru, ru-en</string>
     <string name="put_phrase">Put Phrase!!!</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5405208829283027/1663574190</string>
+
     <string-array name="language">
         <item name="ukraine">uk</item>
         <item name="russian">ru</item>
